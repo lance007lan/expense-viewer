@@ -1,0 +1,4 @@
+region      = "ap-southeast-2"
+app_name    = "expense-viewer"
+db_username = "expenseadmin"
+db_password = "changeme123"   # use a strong password and never commit the real value
