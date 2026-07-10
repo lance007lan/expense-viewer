@@ -1,36 +1,33 @@
-type TabId = 'dashboard' | 'charts';
+import { NavLink } from 'react-router-dom';
 
 interface Tab {
-    id: TabId;
+    path: string;
     label: string;
 }
 
 const TABS: Tab[] = [
-    { id: 'dashboard', label: 'Dashboard' },
-    { id: 'charts', label: 'Charts' },
+    { path: '/dashboard', label: 'Dashboard' },
+    { path: '/charts', label: 'Charts' },
 ];
 
-interface TabsProps {
-    active: TabId;
-    onChange: (tab: TabId) => void;
-}
-
-export default function Tabs({ active, onChange }: TabsProps) {
+export default function Tabs() {
     return (
         <div className="bg-white border-b border-gray-200 px-6">
             <div className="flex gap-0">
                 {TABS.map((tab) => (
-                    <button
-                        key={tab.id}
-                        onClick={() => onChange(tab.id)}
-                        className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
-                            active === tab.id
-                                ? 'border-blue-600 text-blue-600'
-                                : 'border-transparent text-gray-500 hover:text-gray-700'
-                        }`}
+                    <NavLink
+                        key={tab.path}
+                        to={tab.path}
+                        className={({ isActive }) =>
+                            `px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+                                isActive
+                                    ? 'border-blue-600 text-blue-600'
+                                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                            }`
+                        }
                     >
                         {tab.label}
-                    </button>
+                    </NavLink>
                 ))}
             </div>
         </div>
