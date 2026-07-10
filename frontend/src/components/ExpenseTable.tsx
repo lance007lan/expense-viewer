@@ -42,15 +42,7 @@ export default function ExpenseTable({ expenses, loading }: ExpenseTableProps) {
 
             {loading ? (
                 <div className="divide-y divide-gray-50">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                        <div key={i} className="px-6 py-3 flex gap-6">
-                            <div className="h-4 w-20 bg-gray-100 rounded animate-pulse" />
-                            <div className="h-4 w-40 bg-gray-100 rounded animate-pulse" />
-                            <div className="h-4 w-16 bg-gray-100 rounded animate-pulse" />
-                            <div className="h-4 w-20 bg-gray-100 rounded animate-pulse" />
-                            <div className="h-4 w-16 bg-gray-100 rounded animate-pulse ml-auto" />
-                        </div>
-                    ))}
+                    Loading
                 </div>
             ) : expenses.length === 0 ? (
                 <div className="px-6 py-12 text-center text-gray-400 text-sm">
