@@ -21,17 +21,22 @@ interface TimeRangeSelectProps {
 
 const SELECT_CLASS =
     'border border-gray-300 rounded-md px-3 py-1.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500';
-const LABEL_CLASS =
-    'text-xs font-medium text-gray-500 uppercase tracking-wide';
+const LABEL_CLASS = 'text-xs font-medium text-gray-500 uppercase tracking-wide';
 
-export default function TimeRangeSelect({ value, onChange }: TimeRangeSelectProps) {
+export default function TimeRangeSelect({
+    value,
+    onChange,
+}: TimeRangeSelectProps) {
     const { period, customStart, customEnd } = value;
     const range =
         period !== 'custom'
             ? getDateRange(period)
             : { start: customStart, end: customEnd };
 
-    function set<K extends keyof TimeRangeValue>(key: K, val: TimeRangeValue[K]) {
+    function set<K extends keyof TimeRangeValue>(
+        key: K,
+        val: TimeRangeValue[K],
+    ) {
         onChange({ ...value, [key]: val });
     }
 

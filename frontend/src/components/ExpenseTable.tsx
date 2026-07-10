@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Expense } from '../types';
+import { useNavigate } from 'react-router-dom';
 
 const PAGE_SIZE = 8;
 
@@ -31,6 +32,7 @@ export default function ExpenseTable({ expenses, loading }: ExpenseTableProps) {
 
     const shown = expenses.slice(0, visible);
     const hasMore = visible < expenses.length;
+    const navigate = useNavigate();
 
     return (
         <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
@@ -74,6 +76,9 @@ export default function ExpenseTable({ expenses, loading }: ExpenseTableProps) {
                             {shown.map((e) => (
                                 <tr
                                     key={e.id}
+                                    onClick={() =>
+                                        navigate(`/dashboard/expense/${e.id}`)
+                                    }
                                     className="hover:bg-gray-50 transition-colors"
                                 >
                                     <td className="px-6 py-3 text-gray-500 whitespace-nowrap">
