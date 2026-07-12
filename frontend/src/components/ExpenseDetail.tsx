@@ -50,6 +50,21 @@ export default function ExpenseDetail() {
                             ${expense.amount.toFixed(2)}
                         </dd>
                     </div>
+                    {expense.receiptUrl && (
+                        <div>
+                            <dt className="text-gray-500">Receipt</dt>
+                            <dd className="text-gray-900">
+                                <a
+                                    href={expense.receiptUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="text-blue-600 hover:text-blue-800 underline underline-offset-2"
+                                >
+                                    {expense.receiptName ?? 'View receipt'}
+                                </a>
+                            </dd>
+                        </div>
+                    )}
                 </dl>
             </div>
         </main>

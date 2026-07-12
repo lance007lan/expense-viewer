@@ -5,6 +5,8 @@ export interface Expense {
     spender: string;
     category: string;
     amount: number;
+    receiptName?: string;
+    receiptUrl?: string;
 }
 
 export interface Spender {

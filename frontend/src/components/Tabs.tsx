@@ -8,6 +8,7 @@ interface Tab {
 const TABS: Tab[] = [
     { path: '/dashboard', label: 'Dashboard' },
     { path: '/charts', label: 'Charts' },
+    { path: '/import', label: 'Import' },
 ];
 
 export default function Tabs() {

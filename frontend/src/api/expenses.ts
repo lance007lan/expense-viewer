@@ -35,3 +35,20 @@ export async function fetchExpensesByPeriod(
     await delay(350);
     return filterByPeriod(mockData, filters);
 }
+
+/**
+ * Create a new expense.
+ *
+ * Mock: appends to the in-memory list and simulates network latency.
+ * Real: replace the function body with:
+ *   return post<Expense>('/api/expenses', input);
+ */
+export async function createExpense(
+    input: Omit<Expense, 'id'>,
+): Promise<Expense> {
+    await delay(300);
+    const id = Math.max(0, ...mockData.map((e) => e.id)) + 1;
+    const expense: Expense = { id, ...input };
+    mockData.push(expense);
+    return expense;
+}

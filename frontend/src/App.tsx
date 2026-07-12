@@ -7,6 +7,7 @@ import ExpenseDetail from './components/ExpenseDetail.tsx';
 import NotFoundPage from './components/NotFoundPage.tsx';
 
 const ChartsTab = lazy(() => import('./components/ChartsTab'));
+const ImportTab = lazy(() => import('./components/ImportTab'));
 
 export default function App() {
     return (
@@ -30,6 +31,14 @@ export default function App() {
                 <Route
                     path="/dashboard/expense/:id"
                     element={<ExpenseDetail />}
+                />
+                <Route
+                    path="/import"
+                    element={
+                        <Suspense fallback={<div className="px-6 py-8 text-center text-gray-400 text-sm">Loading…</div>}>
+                            <ImportTab />
+                        </Suspense>
+                    }
                 />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

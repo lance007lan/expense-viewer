@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchExpenses, fetchExpensesByPeriod } from './expenses';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { createExpense, fetchExpenses, fetchExpensesByPeriod } from './expenses';
 import { fetchSpenders } from './spenders';
-import type { DashboardFilters, ChartFilters } from '../types';
+import type { DashboardFilters, ChartFilters, Expense } from '../types';
 
 export function useExpensesQuery(filters: DashboardFilters) {
     return useQuery({
@@ -21,5 +21,17 @@ export function useSpendersQuery() {
     return useQuery({
         queryKey: ['spenders'],
         queryFn: fetchSpenders,
+    });
+}
+
+export function useCreateExpenseMutation() {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (input: Omit<Expense, 'id'>) => createExpense(input),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['expenses'] });
+            queryClient.invalidateQueries({ queryKey: ['expensesByPeriod'] });
+        },
     });
 }
