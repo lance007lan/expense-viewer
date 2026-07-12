@@ -1,11 +1,14 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { useDashboardStore } from '../store/useDashboardStore.ts';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useExpensesQuery } from '../api/queries';
+import { dashboardFiltersFromParams } from '../utils/searchParams';
 import NotFoundPage from './NotFoundPage.tsx';
 
 export default function ExpenseDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const expenses = useDashboardStore((s) => s.expenses);
+    const [searchParams] = useSearchParams();
+    const filters = dashboardFiltersFromParams(searchParams);
+    const { data: expenses = [] } = useExpensesQuery(filters);
 
     const expense = expenses.find((e) => id && e.id === +id);
 

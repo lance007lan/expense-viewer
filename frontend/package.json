@@ -14,14 +14,15 @@
         "test:ui": "vitest --ui"
     },
     "dependencies": {
+        "@tanstack/react-query": "^5.101.2",
         "react": "^19.2.7",
         "react-dom": "^19.2.7",
         "react-router-dom": "^7.18.1",
-        "recharts": "^3.9.2",
-        "zustand": "^5.0.14"
+        "recharts": "^3.9.2"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.3.2",
+        "@tanstack/react-query-devtools": "^5.101.2",
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/react": "^16.3.2",
         "@types/react": "^19.2.17",

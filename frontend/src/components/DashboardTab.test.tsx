@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import DashboardTab from './DashboardTab';
-import { useDashboardStore } from '../store/useDashboardStore';
 import * as expensesApi from '../api/expenses';
 import * as spendersApi from '../api/spenders';
 import type { Expense } from '../types';
@@ -14,23 +14,21 @@ const expenses: Expense[] = [
 ];
 
 beforeEach(() => {
-    useDashboardStore.setState({
-        filters: { period: 'this_month', customStart: '', customEnd: '', spender: '', category: '' },
-        expenses: [],
-        spenders: [],
-        loading: false,
-        error: null,
-    });
-
     vi.mocked(expensesApi.fetchExpenses).mockResolvedValue(expenses);
     vi.mocked(spendersApi.fetchSpenders).mockResolvedValue([{ id: 1, name: 'Alice' }]);
 });
 
 function renderDashboard() {
+    const queryClient = new QueryClient({
+        defaultOptions: { queries: { retry: false } },
+    });
+
     return render(
-        <MemoryRouter>
-            <DashboardTab />
-        </MemoryRouter>,
+        <QueryClientProvider client={queryClient}>
+            <MemoryRouter>
+                <DashboardTab />
+            </MemoryRouter>
+        </QueryClientProvider>,
     );
 }
 
