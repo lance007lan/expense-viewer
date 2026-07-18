@@ -5,6 +5,7 @@ import Tabs from './components/Tabs';
 import DashboardTab from './components/DashboardTab';
 import ExpenseDetail from './components/ExpenseDetail.tsx';
 import NotFoundPage from './components/NotFoundPage.tsx';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const ChartsTab = lazy(() => import('./components/ChartsTab'));
 const ImportTab = lazy(() => import('./components/ImportTab'));
@@ -14,34 +15,36 @@ export default function App() {
         <div className="min-h-screen bg-gray-50 text-gray-900">
             <Header />
             <Tabs />
-            <Routes>
-                <Route
-                    path="/"
-                    element={<Navigate to="/dashboard" replace />}
-                />
-                <Route path="/dashboard" element={<DashboardTab />} />
-                <Route
-                    path="/charts"
-                    element={
-                        <Suspense fallback={<div className="px-6 py-8 text-center text-gray-400 text-sm">Loading charts…</div>}>
-                            <ChartsTab />
-                        </Suspense>
-                    }
-                />
-                <Route
-                    path="/dashboard/expense/:id"
-                    element={<ExpenseDetail />}
-                />
-                <Route
-                    path="/import"
-                    element={
-                        <Suspense fallback={<div className="px-6 py-8 text-center text-gray-400 text-sm">Loading…</div>}>
-                            <ImportTab />
-                        </Suspense>
-                    }
-                />
-                <Route path="*" element={<NotFoundPage />} />
-            </Routes>
+            <ErrorBoundary>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={<Navigate to="/dashboard" replace />}
+                    />
+                    <Route path="/dashboard" element={<DashboardTab />} />
+                    <Route
+                        path="/charts"
+                        element={
+                            <Suspense fallback={<div className="px-6 py-8 text-center text-gray-400 text-sm">Loading charts…</div>}>
+                                <ChartsTab />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/dashboard/expense/:id"
+                        element={<ExpenseDetail />}
+                    />
+                    <Route
+                        path="/import"
+                        element={
+                            <Suspense fallback={<div className="px-6 py-8 text-center text-gray-400 text-sm">Loading…</div>}>
+                                <ImportTab />
+                            </Suspense>
+                        }
+                    />
+                    <Route path="*" element={<NotFoundPage />} />
+                </Routes>
+            </ErrorBoundary>
         </div>
     );
 }
