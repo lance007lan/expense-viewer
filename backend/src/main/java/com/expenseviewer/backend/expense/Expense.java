@@ -31,6 +31,12 @@ public class Expense {
     @Column(nullable = false)
     private LocalDate date;
 
+    @Column(name = "receipt_name")
+    private String receiptName;
+
+    @Column(name = "receipt_url")
+    private String receiptUrl;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 }
