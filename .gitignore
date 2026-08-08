@@ -1,6 +1,9 @@
 # Frontend
 frontend/node_modules/
-frontend/dist/
+frontend/host/node_modules/
+frontend/host/dist/
+frontend/charts-remote/node_modules/
+frontend/charts-remote/dist/
 
 # Backend
 backend/target/

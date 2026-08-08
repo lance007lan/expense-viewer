@@ -1,0 +1,5 @@
+packages:
+  - host
+  - charts-remote
+allowBuilds:
+  esbuild: true
