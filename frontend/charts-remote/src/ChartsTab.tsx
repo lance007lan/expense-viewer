@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './index.css';
 import ChartFilters from './components/charts/ChartFilters';
 import SpendingByCategory from './components/charts/SpendingByCategory';
@@ -12,7 +13,7 @@ import {
 } from './utils/searchParams';
 import type { ChartFilters as ChartFiltersType } from './types';
 
-export default function ChartsTab() {
+function ChartsTabContent() {
     const [searchParams, setSearchParams] = useSearchParams();
     const filters = chartFiltersFromParams(searchParams);
     const setFilters = (next: ChartFiltersType) =>
@@ -34,11 +35,11 @@ export default function ChartsTab() {
     );
 
     return (
-        <main className="max-w-5xl mx-auto px-6 py-8 flex flex-col gap-6">
+        <main className="c:max-w-5xl c:mx-auto c:px-6 c:py-8 c:flex c:flex-col c:gap-6">
             <ChartFilters filters={filters} onChange={setFilters} />
-            {error && <p className="text-sm text-red-500">{error.message}</p>}
+            {error && <p className="c:text-sm c:text-red-500">{error.message}</p>}
             <div
-                className={`grid grid-cols-2 gap-6 transition-opacity ${loading ? 'opacity-50' : ''}`}
+                className={`c:grid c:grid-cols-2 c:gap-6 c:transition-opacity ${loading ? 'c:opacity-50' : ''}`}
             >
                 <SpendingByCategory
                     data={categoryData}
@@ -47,5 +48,19 @@ export default function ChartsTab() {
                 <SpendingOverTime data={timeData} viewBy={filters.viewBy} />
             </div>
         </main>
+    );
+}
+
+// Own independent QueryClient, deliberately not shared with the host across
+// the federation boundary (see vite.config.ts) — required both when this
+// remote runs standalone and when it's federated into a host with no
+// knowledge of @tanstack/react-query's context at all.
+const queryClient = new QueryClient();
+
+export default function ChartsTab() {
+    return (
+        <QueryClientProvider client={queryClient}>
+            <ChartsTabContent />
+        </QueryClientProvider>
     );
 }

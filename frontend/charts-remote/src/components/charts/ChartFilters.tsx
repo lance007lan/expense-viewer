@@ -36,15 +36,15 @@ export default function ChartFilters({ filters, onChange }: ChartFiltersProps) {
     }
 
     return (
-        <div className="bg-white border border-gray-200 rounded-xl p-4 flex flex-col gap-4">
+        <div className="c:bg-white c:border c:border-gray-200 c:rounded-xl c:p-4 c:flex c:flex-col c:gap-4">
             <TimeRangeSelect
                 value={filters}
                 onChange={(range) => onChange({ ...filters, ...range })}
             />
 
-            <div className="flex flex-wrap items-end gap-4 pt-4 border-t border-gray-100">
-                <div className="flex flex-col gap-1">
-                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+            <div className="c:flex c:flex-wrap c:items-end c:gap-4 c:pt-4 c:border-t c:border-gray-100">
+                <div className="c:flex c:flex-col c:gap-1">
+                    <label className="c:text-xs c:font-medium c:text-gray-500 c:uppercase c:tracking-wide">
                         Group By
                     </label>
                     <select
@@ -55,7 +55,7 @@ export default function ChartFilters({ filters, onChange }: ChartFiltersProps) {
                                 e.target.value as ChartFiltersType['groupBy'],
                             )
                         }
-                        className="border border-gray-300 rounded-md px-3 py-1.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="c:border c:border-gray-300 c:rounded-md c:px-3 c:py-1.5 c:text-sm c:text-gray-900 c:focus:outline-none c:focus:ring-2 c:focus:ring-blue-500"
                     >
                         {GROUP_BY.map((g) => (
                             <option key={g.value} value={g.value}>
@@ -65,8 +65,8 @@ export default function ChartFilters({ filters, onChange }: ChartFiltersProps) {
                     </select>
                 </div>
 
-                <div className="flex flex-col gap-1">
-                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                <div className="c:flex c:flex-col c:gap-1">
+                    <label className="c:text-xs c:font-medium c:text-gray-500 c:uppercase c:tracking-wide">
                         View By
                     </label>
                     <select
@@ -77,7 +77,7 @@ export default function ChartFilters({ filters, onChange }: ChartFiltersProps) {
                                 e.target.value as ChartFiltersType['viewBy'],
                             )
                         }
-                        className="border border-gray-300 rounded-md px-3 py-1.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="c:border c:border-gray-300 c:rounded-md c:px-3 c:py-1.5 c:text-sm c:text-gray-900 c:focus:outline-none c:focus:ring-2 c:focus:ring-blue-500"
                     >
                         {VIEW_BY.map((v) => (
                             <option key={v.value} value={v.value}>
@@ -89,7 +89,7 @@ export default function ChartFilters({ filters, onChange }: ChartFiltersProps) {
 
                 <button
                     onClick={() => onChange(DEFAULT)}
-                    className="mb-0.5 text-sm text-blue-600 hover:text-blue-800 underline underline-offset-2"
+                    className="c:mb-0.5 c:text-sm c:text-blue-600 c:hover:text-blue-800 c:underline c:underline-offset-2"
                 >
                     Clear
                 </button>

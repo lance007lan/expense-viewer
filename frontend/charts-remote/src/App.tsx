@@ -6,8 +6,8 @@ import ChartsTab from './ChartsTab';
  */
 export default function App() {
     return (
-        <div className="min-h-screen bg-gray-50 text-gray-900">
-            <header className="bg-white border-b border-gray-200 px-6 py-3 text-sm text-gray-500">
+        <div className="c:min-h-screen c:bg-gray-50 c:text-gray-900">
+            <header className="c:bg-white c:border-b c:border-gray-200 c:px-6 c:py-3 c:text-sm c:text-gray-500">
                 charts-remote — standalone preview
             </header>
             <ChartsTab />

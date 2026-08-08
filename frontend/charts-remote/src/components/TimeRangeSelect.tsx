@@ -20,8 +20,9 @@ interface TimeRangeSelectProps {
 }
 
 const SELECT_CLASS =
-    'border border-gray-300 rounded-md px-3 py-1.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500';
-const LABEL_CLASS = 'text-xs font-medium text-gray-500 uppercase tracking-wide';
+    'c:border c:border-gray-300 c:rounded-md c:px-3 c:py-1.5 c:text-sm c:text-gray-900 c:focus:outline-none c:focus:ring-2 c:focus:ring-blue-500';
+const LABEL_CLASS =
+    'c:text-xs c:font-medium c:text-gray-500 c:uppercase c:tracking-wide';
 
 export default function TimeRangeSelect({
     value,
@@ -41,8 +42,8 @@ export default function TimeRangeSelect({
     }
 
     return (
-        <div className="flex flex-wrap items-start gap-4">
-            <div className="flex flex-col gap-1">
+        <div className="c:flex c:flex-wrap c:items-start c:gap-4">
+            <div className="c:flex c:flex-col c:gap-1">
                 <label className={LABEL_CLASS}>Period</label>
                 <select
                     value={period}
@@ -56,15 +57,15 @@ export default function TimeRangeSelect({
                     ))}
                 </select>
                 {range.start && range.end && (
-                    <span className="text-xs text-gray-400">
+                    <span className="c:text-xs c:text-gray-400">
                         {displayRange(range.start, range.end)}
                     </span>
                 )}
             </div>
 
             {period === 'custom' && (
-                <div className="flex items-end gap-2">
-                    <div className="flex flex-col gap-1">
+                <div className="c:flex c:items-end c:gap-2">
+                    <div className="c:flex c:flex-col c:gap-1">
                         <label className={LABEL_CLASS}>From</label>
                         <input
                             type="date"
@@ -73,7 +74,7 @@ export default function TimeRangeSelect({
                             className={SELECT_CLASS}
                         />
                     </div>
-                    <div className="flex flex-col gap-1">
+                    <div className="c:flex c:flex-col c:gap-1">
                         <label className={LABEL_CLASS}>To</label>
                         <input
                             type="date"

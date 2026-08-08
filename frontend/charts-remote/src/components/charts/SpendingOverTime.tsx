@@ -20,9 +20,9 @@ function CustomTooltip({ active, payload, label, viewBy }: CustomTooltipProps) {
     if (!active || !payload?.length) return null;
     const value = payload[0].value ?? 0;
     return (
-        <div className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm shadow-sm">
-            <span className="font-medium">{label}</span>
-            <span className="ml-2 text-gray-600">
+        <div className="c:bg-white c:border c:border-gray-200 c:rounded-lg c:px-3 c:py-2 c:text-sm c:shadow-sm">
+            <span className="c:font-medium">{label}</span>
+            <span className="c:ml-2 c:text-gray-600">
                 {viewBy === 'amount' ? `$${value.toFixed(2)}` : `${value} txns`}
             </span>
         </div>
@@ -46,15 +46,15 @@ export default function SpendingOverTime({
 }: SpendingOverTimeProps) {
     if (data.length === 0) {
         return (
-            <div className="bg-white border border-gray-200 rounded-xl p-6 flex items-center justify-center text-sm text-gray-400 h-80">
+            <div className="c:bg-white c:border c:border-gray-200 c:rounded-xl c:p-6 c:flex c:items-center c:justify-center c:text-sm c:text-gray-400 c:h-80">
                 No data
             </div>
         );
     }
 
     return (
-        <div className="bg-white border border-gray-200 rounded-xl p-6">
-            <h2 className="font-semibold text-gray-900 mb-4">
+        <div className="c:bg-white c:border c:border-gray-200 c:rounded-xl c:p-6">
+            <h2 className="c:font-semibold c:text-gray-900 c:mb-4">
                 Spending Over Time
             </h2>
             <ResponsiveContainer width="100%" height={300}>

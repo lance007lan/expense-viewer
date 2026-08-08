@@ -23,9 +23,9 @@ function CustomTooltip({ active, payload, viewBy }: CustomTooltipProps) {
     if (!active || !payload?.length) return null;
     const { name, value } = payload[0].payload;
     return (
-        <div className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm shadow-sm">
-            <span className="font-medium">{name}</span>
-            <span className="ml-2 text-gray-600">
+        <div className="c:bg-white c:border c:border-gray-200 c:rounded-lg c:px-3 c:py-2 c:text-sm c:shadow-sm">
+            <span className="c:font-medium">{name}</span>
+            <span className="c:ml-2 c:text-gray-600">
                 {viewBy === 'amount' ? `$${value.toFixed(2)}` : `${value} txns`}
             </span>
         </div>
@@ -45,15 +45,15 @@ export default function SpendingByCategory({
 
     if (data.length === 0) {
         return (
-            <div className="bg-white border border-gray-200 rounded-xl p-6 flex items-center justify-center text-sm text-gray-400 h-80">
+            <div className="c:bg-white c:border c:border-gray-200 c:rounded-xl c:p-6 c:flex c:items-center c:justify-center c:text-sm c:text-gray-400 c:h-80">
                 No data
             </div>
         );
     }
 
     return (
-        <div className="bg-white border border-gray-200 rounded-xl p-6">
-            <h2 className="font-semibold text-gray-900 mb-4">
+        <div className="c:bg-white c:border c:border-gray-200 c:rounded-xl c:p-6">
+            <h2 className="c:font-semibold c:text-gray-900 c:mb-4">
                 Spending by Category
             </h2>
             <ResponsiveContainer width="100%" height={220}>
@@ -78,7 +78,7 @@ export default function SpendingByCategory({
                 </PieChart>
             </ResponsiveContainer>
 
-            <div className="mt-4 flex flex-col gap-2">
+            <div className="c:mt-4 c:flex c:flex-col c:gap-2">
                 {data.map((entry) => {
                     const pct =
                         total > 0
@@ -87,27 +87,27 @@ export default function SpendingByCategory({
                     return (
                         <div
                             key={entry.name}
-                            className="flex items-center justify-between text-sm"
+                            className="c:flex c:items-center c:justify-between c:text-sm"
                         >
-                            <div className="flex items-center gap-2">
+                            <div className="c:flex c:items-center c:gap-2">
                                 <span
-                                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                                    className="c:w-2.5 c:h-2.5 c:rounded-full c:flex-shrink-0"
                                     style={{
                                         backgroundColor:
                                             COLORS[entry.name] ?? DEFAULT_COLOR,
                                     }}
                                 />
-                                <span className="text-gray-700">
+                                <span className="c:text-gray-700">
                                     {entry.name}
                                 </span>
                             </div>
-                            <div className="flex items-center gap-3 text-gray-500">
+                            <div className="c:flex c:items-center c:gap-3 c:text-gray-500">
                                 <span>
                                     {viewBy === 'amount'
                                         ? `$${entry.value.toFixed(2)}`
                                         : `${entry.value} txns`}
                                 </span>
-                                <span className="w-8 text-right">{pct}%</span>
+                                <span className="c:w-8 c:text-right">{pct}%</span>
                             </div>
                         </div>
                     );
