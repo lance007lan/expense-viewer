@@ -2,7 +2,10 @@ import type { Expense, DashboardFilters } from '../types';
 import { getDateRange } from '../utils/date';
 import { get, post } from './client';
 
-function resolveRange(filters: DashboardFilters): { start: string; end: string } {
+function resolveRange(filters: DashboardFilters): {
+    start: string;
+    end: string;
+} {
     return filters.period !== 'custom'
         ? getDateRange(filters.period)
         : { start: filters.customStart, end: filters.customEnd };

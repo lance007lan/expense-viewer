@@ -6,7 +6,8 @@ import federation from '@originjs/vite-plugin-federation';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
     const chartsRemoteUrl =
-        env.VITE_CHARTS_REMOTE_URL ?? 'http://localhost:5174/assets/remoteEntry.js';
+        env.VITE_CHARTS_REMOTE_URL ??
+        'http://localhost:5174/assets/remoteEntry.js';
 
     return {
         plugins: [

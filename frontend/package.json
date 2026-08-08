@@ -3,9 +3,14 @@
     "private": true,
     "packageManager": "pnpm@11.20.0",
     "scripts": {
-        "dev": "pnpm --filter charts-remote build && concurrently -n remote,host -c blue,green \"pnpm --filter charts-remote preview\" \"pnpm --filter host dev\""
+        "dev": "pnpm --filter charts-remote build && concurrently -n remote,host -c blue,green \"pnpm --filter charts-remote preview\" \"pnpm --filter host dev\"",
+        "lint": "oxlint .",
+        "format": "prettier --write .",
+        "format:check": "prettier --check ."
     },
     "devDependencies": {
-        "concurrently": "^9.1.0"
+        "concurrently": "^9.1.0",
+        "oxlint": "^1.71.0",
+        "prettier": "^3.9.4"
     }
 }

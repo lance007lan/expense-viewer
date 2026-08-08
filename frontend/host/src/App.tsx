@@ -27,7 +27,13 @@ export default function App() {
                     <Route
                         path="/charts"
                         element={
-                            <Suspense fallback={<div className="px-6 py-8 text-center text-gray-400 text-sm">Loading charts…</div>}>
+                            <Suspense
+                                fallback={
+                                    <div className="px-6 py-8 text-center text-gray-400 text-sm">
+                                        Loading charts…
+                                    </div>
+                                }
+                            >
                                 <ChartsTab />
                             </Suspense>
                         }
@@ -39,7 +45,13 @@ export default function App() {
                     <Route
                         path="/import"
                         element={
-                            <Suspense fallback={<div className="px-6 py-8 text-center text-gray-400 text-sm">Loading…</div>}>
+                            <Suspense
+                                fallback={
+                                    <div className="px-6 py-8 text-center text-gray-400 text-sm">
+                                        Loading…
+                                    </div>
+                                }
+                            >
                                 <ImportTab />
                             </Suspense>
                         }

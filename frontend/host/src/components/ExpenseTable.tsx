@@ -42,9 +42,7 @@ export default function ExpenseTable({ expenses, loading }: ExpenseTableProps) {
             </div>
 
             {loading ? (
-                <div className="divide-y divide-gray-50">
-                    Loading
-                </div>
+                <div className="divide-y divide-gray-50">Loading</div>
             ) : expenses.length === 0 ? (
                 <div className="px-6 py-12 text-center text-gray-400 text-sm">
                     No expenses match the selected filters.

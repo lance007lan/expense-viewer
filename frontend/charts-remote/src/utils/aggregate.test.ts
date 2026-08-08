@@ -3,9 +3,30 @@ import { aggregateByCategory } from './aggregate';
 import type { Expense } from '../types';
 
 const expenses: Expense[] = [
-    { id: 1, date: '2026-07-01', description: 'Milk', spender: 'Alice', category: 'Groceries', amount: 10 },
-    { id: 2, date: '2026-07-02', description: 'Bread', spender: 'Bob', category: 'Groceries', amount: 5 },
-    { id: 3, date: '2026-07-03', description: 'Movie', spender: 'Alice', category: 'Entertainment', amount: 20 },
+    {
+        id: 1,
+        date: '2026-07-01',
+        description: 'Milk',
+        spender: 'Alice',
+        category: 'Groceries',
+        amount: 10,
+    },
+    {
+        id: 2,
+        date: '2026-07-02',
+        description: 'Bread',
+        spender: 'Bob',
+        category: 'Groceries',
+        amount: 5,
+    },
+    {
+        id: 3,
+        date: '2026-07-03',
+        description: 'Movie',
+        spender: 'Alice',
+        category: 'Entertainment',
+        amount: 20,
+    },
 ];
 
 describe('aggregateByCategory', () => {

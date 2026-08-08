@@ -72,9 +72,7 @@ export default function ImportTab() {
                 onSubmit={handleSubmit(onSubmit)}
                 className="bg-white border border-gray-200 rounded-xl p-6 flex flex-col gap-4"
             >
-                <h2 className="font-semibold text-gray-900">
-                    Import Expense
-                </h2>
+                <h2 className="font-semibold text-gray-900">Import Expense</h2>
 
                 {mutation.isSuccess && (
                     <p className="text-sm text-green-600">Expense added.</p>

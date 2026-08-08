@@ -21,7 +21,8 @@ export function dashboardFiltersFromParams(
 ): DashboardFilters {
     return {
         period: params.get('period') ?? DASHBOARD_DEFAULTS.period,
-        customStart: params.get('customStart') ?? DASHBOARD_DEFAULTS.customStart,
+        customStart:
+            params.get('customStart') ?? DASHBOARD_DEFAULTS.customStart,
         customEnd: params.get('customEnd') ?? DASHBOARD_DEFAULTS.customEnd,
         spender: params.get('spender') ?? DASHBOARD_DEFAULTS.spender,
         category: params.get('category') ?? DASHBOARD_DEFAULTS.category,

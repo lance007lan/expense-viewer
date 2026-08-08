@@ -7,9 +7,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "lint": "oxlint",
         "preview": "vite preview",
-        "format": "prettier --write .",
         "test": "vitest run",
         "test:watch": "vitest",
         "test:ui": "vitest --ui"
@@ -34,8 +32,6 @@
         "@vitejs/plugin-react": "^4.3.4",
         "@vitest/ui": "^2.1.8",
         "jsdom": "^25.0.1",
-        "oxlint": "^1.71.0",
-        "prettier": "^3.9.4",
         "tailwindcss": "^4.3.2",
         "typescript": "^6.0.3",
         "vite": "^5.4.11",

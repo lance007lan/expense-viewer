@@ -18,8 +18,11 @@ export default function ChartsTab() {
     const setFilters = (next: ChartFiltersType) =>
         setSearchParams(chartFiltersToParams(next));
 
-    const { data: expenses = [], isLoading: loading, error } =
-        useExpensesByPeriodQuery(filters);
+    const {
+        data: expenses = [],
+        isLoading: loading,
+        error,
+    } = useExpensesByPeriodQuery(filters);
 
     const categoryData = useMemo(
         () => aggregateByCategory(expenses, filters.viewBy),

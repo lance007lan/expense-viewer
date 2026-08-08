@@ -10,12 +10,21 @@ vi.mock('../api/expenses');
 vi.mock('../api/spenders');
 
 const expenses: Expense[] = [
-    { id: 1, date: '2026-07-01', description: 'Milk', spender: 'Alice', category: 'Groceries', amount: 10 },
+    {
+        id: 1,
+        date: '2026-07-01',
+        description: 'Milk',
+        spender: 'Alice',
+        category: 'Groceries',
+        amount: 10,
+    },
 ];
 
 beforeEach(() => {
     vi.mocked(expensesApi.fetchExpenses).mockResolvedValue(expenses);
-    vi.mocked(spendersApi.fetchSpenders).mockResolvedValue([{ id: 1, name: 'Alice' }]);
+    vi.mocked(spendersApi.fetchSpenders).mockResolvedValue([
+        { id: 1, name: 'Alice' },
+    ]);
 });
 
 function renderDashboard() {
