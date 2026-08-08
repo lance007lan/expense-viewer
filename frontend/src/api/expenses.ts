@@ -1,10 +1,8 @@
-import type { Expense, DashboardFilters, ChartFilters } from '../types';
+import type { Expense, DashboardFilters } from '../types';
 import { getDateRange } from '../utils/date';
 import { get, post } from './client';
 
-type AnyFilters = DashboardFilters | ChartFilters;
-
-function resolveRange(filters: AnyFilters): { start: string; end: string } {
+function resolveRange(filters: DashboardFilters): { start: string; end: string } {
     return filters.period !== 'custom'
         ? getDateRange(filters.period)
         : { start: filters.customStart, end: filters.customEnd };
@@ -23,16 +21,6 @@ export async function fetchExpenses(
         spender: filters.spender,
         category: filters.category,
     });
-}
-
-/**
- * Fetch expenses filtered by period only (used by charts tab).
- */
-export async function fetchExpensesByPeriod(
-    filters: AnyFilters,
-): Promise<Expense[]> {
-    const { start, end } = resolveRange(filters);
-    return get<Expense[]>('/api/expenses', { start, end });
 }
 
 /**

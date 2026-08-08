@@ -7,7 +7,9 @@ import ExpenseDetail from './components/ExpenseDetail.tsx';
 import NotFoundPage from './components/NotFoundPage.tsx';
 import ErrorBoundary from './components/ErrorBoundary';
 
-const ChartsTab = lazy(() => import('./components/ChartsTab'));
+// Loaded at runtime from the separately-built/deployed charts-remote app
+// via Module Federation, not bundled into this app at build time.
+const ChartsTab = lazy(() => import('chartsRemote/ChartsTab'));
 const ImportTab = lazy(() => import('./components/ImportTab'));
 
 export default function App() {

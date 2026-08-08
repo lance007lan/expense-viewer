@@ -1,15 +1,16 @@
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import ChartFilters from './charts/ChartFilters';
-import SpendingByCategory from './charts/SpendingByCategory';
-import SpendingOverTime from './charts/SpendingOverTime';
-import { aggregateByCategory, aggregateByTime } from '../utils/aggregate';
-import { useExpensesByPeriodQuery } from '../api/queries';
+import './index.css';
+import ChartFilters from './components/charts/ChartFilters';
+import SpendingByCategory from './components/charts/SpendingByCategory';
+import SpendingOverTime from './components/charts/SpendingOverTime';
+import { aggregateByCategory, aggregateByTime } from './utils/aggregate';
+import { useExpensesByPeriodQuery } from './api/queries';
 import {
     chartFiltersFromParams,
     chartFiltersToParams,
-} from '../utils/searchParams';
-import type { ChartFilters as ChartFiltersType } from '../types';
+} from './utils/searchParams';
+import type { ChartFilters as ChartFiltersType } from './types';
 
 export default function ChartsTab() {
     const [searchParams, setSearchParams] = useSearchParams();

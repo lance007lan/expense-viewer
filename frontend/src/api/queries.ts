@@ -1,19 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { createExpense, fetchExpenses, fetchExpensesByPeriod } from './expenses';
+import { createExpense, fetchExpenses } from './expenses';
 import { fetchSpenders } from './spenders';
-import type { DashboardFilters, ChartFilters, Expense } from '../types';
+import type { DashboardFilters, Expense } from '../types';
 
 export function useExpensesQuery(filters: DashboardFilters) {
     return useQuery({
         queryKey: ['expenses', filters],
         queryFn: () => fetchExpenses(filters),
-    });
-}
-
-export function useExpensesByPeriodQuery(filters: ChartFilters) {
-    return useQuery({
-        queryKey: ['expensesByPeriod', filters],
-        queryFn: () => fetchExpensesByPeriod(filters),
     });
 }
 
@@ -30,8 +23,10 @@ export function useCreateExpenseMutation() {
     return useMutation({
         mutationFn: (input: Omit<Expense, 'id'>) => createExpense(input),
         onSuccess: () => {
+            // charts-remote owns an independent QueryClient (see its
+            // ChartsTab.tsx for why) and isn't reachable from here — it
+            // picks up new expenses on its own next fetch instead.
             queryClient.invalidateQueries({ queryKey: ['expenses'] });
-            queryClient.invalidateQueries({ queryKey: ['expensesByPeriod'] });
         },
     });
 }

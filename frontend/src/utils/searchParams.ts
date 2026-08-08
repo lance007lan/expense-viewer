@@ -1,4 +1,4 @@
-import type { DashboardFilters, ChartFilters } from '../types';
+import type { DashboardFilters } from '../types';
 
 const DASHBOARD_DEFAULTS: DashboardFilters = {
     period: 'this_month',
@@ -6,14 +6,6 @@ const DASHBOARD_DEFAULTS: DashboardFilters = {
     customEnd: '',
     spender: '',
     category: '',
-};
-
-const CHART_DEFAULTS: ChartFilters = {
-    period: 'this_month',
-    customStart: '',
-    customEnd: '',
-    groupBy: 'week',
-    viewBy: 'amount',
 };
 
 function toParams<T extends object>(filters: T): URLSearchParams {
@@ -39,23 +31,5 @@ export function dashboardFiltersFromParams(
 export function dashboardFiltersToParams(
     filters: DashboardFilters,
 ): URLSearchParams {
-    return toParams(filters);
-}
-
-export function chartFiltersFromParams(params: URLSearchParams): ChartFilters {
-    return {
-        period: params.get('period') ?? CHART_DEFAULTS.period,
-        customStart: params.get('customStart') ?? CHART_DEFAULTS.customStart,
-        customEnd: params.get('customEnd') ?? CHART_DEFAULTS.customEnd,
-        groupBy:
-            (params.get('groupBy') as ChartFilters['groupBy'] | null) ??
-            CHART_DEFAULTS.groupBy,
-        viewBy:
-            (params.get('viewBy') as ChartFilters['viewBy'] | null) ??
-            CHART_DEFAULTS.viewBy,
-    };
-}
-
-export function chartFiltersToParams(filters: ChartFilters): URLSearchParams {
     return toParams(filters);
 }
