@@ -124,8 +124,62 @@ const userPoolClient = new aws.cognito.UserPoolClient(`${appName}-frontend`, {
     explicitAuthFlows: ['ALLOW_USER_SRP_AUTH', 'ALLOW_REFRESH_TOKEN_AUTH'],
 });
 
+// ── S3 — static frontend hosting ─────────────────────────────────────────
+
+const current = aws.getCallerIdentity({});
+
+const frontendBucket = new aws.s3.Bucket(`${appName}-frontend`, {
+    bucket: current.then((c) => `${appName}-frontend-${c.accountId}`),
+});
+
+const frontendWebsite = new aws.s3.BucketWebsiteConfigurationV2(
+    `${appName}-frontend-website`,
+    {
+        bucket: frontendBucket.id,
+        indexDocument: { suffix: 'index.html' },
+        // Route all 404s back to index.html so React Router works.
+        errorDocument: { key: 'index.html' },
+    },
+);
+
+const frontendPublicAccess = new aws.s3.BucketPublicAccessBlock(
+    `${appName}-frontend-public-access`,
+    {
+        bucket: frontendBucket.id,
+        blockPublicAcls: false,
+        blockPublicPolicy: false,
+        ignorePublicAcls: false,
+        restrictPublicBuckets: false,
+    },
+);
+
+new aws.s3.BucketPolicy(
+    `${appName}-frontend-policy`,
+    {
+        bucket: frontendBucket.id,
+        policy: frontendBucket.arn.apply((arn) =>
+            JSON.stringify({
+                Version: '2012-10-17',
+                Statement: [
+                    {
+                        Effect: 'Allow',
+                        Principal: '*',
+                        Action: 's3:GetObject',
+                        Resource: `${arn}/*`,
+                    },
+                ],
+            }),
+        ),
+    },
+    { dependsOn: [frontendPublicAccess] },
+);
+
 // ── Outputs ────────────────────────────────────────────────────────────────
 
 export const k3sPublicIp = k3sInstance.publicIp;
 export const cognitoUserPoolId = userPool.id;
 export const cognitoUserPoolClientId = userPoolClient.id;
+export const frontendBucketName = frontendBucket.id;
+export const frontendUrl = frontendWebsite.websiteEndpoint.apply(
+    (endpoint) => `http://${endpoint}`,
+);
