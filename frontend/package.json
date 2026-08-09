@@ -4,6 +4,7 @@
     "packageManager": "pnpm@11.20.0",
     "scripts": {
         "dev": "pnpm --filter charts-remote build && concurrently -n remote,host -c blue,green \"pnpm --filter charts-remote preview\" \"pnpm --filter host dev\"",
+        "build:deploy": "./build-for-deploy.sh",
         "lint": "oxlint .",
         "format": "prettier --write .",
         "format:check": "prettier --check ."

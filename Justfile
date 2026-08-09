@@ -48,14 +48,14 @@ build-frontend:
 # Build everything
 build: build-backend build-frontend
 
-# Terraform plan
-tf-plan:
-    cd terraform && terraform plan
+# Pulumi preview
+pulumi-preview:
+    cd pulumi && AWS_PROFILE=ev PULUMI_CONFIG_PASSPHRASE="" pulumi preview
 
-# Terraform apply
-tf-apply:
-    cd terraform && terraform apply
+# Pulumi up (apply)
+pulumi-up:
+    cd pulumi && AWS_PROFILE=ev PULUMI_CONFIG_PASSPHRASE="" pulumi up
 
-# Terraform destroy
-tf-destroy:
-    cd terraform && terraform destroy
+# Pulumi destroy
+pulumi-destroy:
+    cd pulumi && AWS_PROFILE=ev PULUMI_CONFIG_PASSPHRASE="" pulumi destroy

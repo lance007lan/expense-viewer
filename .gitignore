@@ -4,6 +4,7 @@ frontend/host/node_modules/
 frontend/host/dist/
 frontend/charts-remote/node_modules/
 frontend/charts-remote/dist/
+frontend/dist-deploy/
 
 # Backend
 backend/target/
