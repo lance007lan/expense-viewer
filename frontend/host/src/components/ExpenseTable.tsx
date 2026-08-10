@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import type { Expense } from '../types';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelectionStore } from '../store/useSelectionStore';
 
 const PAGE_SIZE = 8;
 
@@ -27,13 +28,68 @@ interface ExpenseTableProps {
     loading: boolean;
 }
 
+interface ExpenseRowProps {
+    expense: Expense;
+}
+
+// Split out and memoized so each row only re-renders on its own selection
+// change, not whenever any other row is toggled or the table re-renders for
+// an unrelated reason (e.g. ExpenseTable's own selectedIds subscription).
+const ExpenseRow = memo(function ExpenseRow({ expense: e }: ExpenseRowProps) {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const checked = useSelectionStore((s) => s.selectedIds.has(e.id));
+    const toggle = useSelectionStore((s) => s.toggle);
+
+    return (
+        <tr
+            onClick={() =>
+                navigate(`/dashboard/expense/${e.id}${location.search}`)
+            }
+            className="hover:bg-gray-50 transition-colors cursor-pointer"
+        >
+            <td
+                className="px-6 py-3"
+                onClick={(evt) => evt.stopPropagation()}
+            >
+                <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={() => toggle(e.id)}
+                    aria-label={`Select expense ${e.description}`}
+                />
+            </td>
+            <td className="px-6 py-3 text-gray-500 whitespace-nowrap">
+                {formatDate(e.date)}
+            </td>
+            <td className="px-6 py-3 text-gray-900">{e.description}</td>
+            <td className="px-6 py-3 text-gray-700">{e.spender}</td>
+            <td className="px-6 py-3">
+                <span
+                    className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${CATEGORY_COLORS[e.category] ?? 'bg-gray-100 text-gray-600'}`}
+                >
+                    {e.category}
+                </span>
+            </td>
+            <td className="px-6 py-3 text-right font-medium text-gray-900">
+                ${e.amount.toFixed(2)}
+            </td>
+        </tr>
+    );
+});
+
 export default function ExpenseTable({ expenses, loading }: ExpenseTableProps) {
     const [visible, setVisible] = useState(PAGE_SIZE);
 
     const shown = expenses.slice(0, visible);
     const hasMore = visible < expenses.length;
-    const navigate = useNavigate();
-    const location = useLocation();
+    const selectedIds = useSelectionStore((s) => s.selectedIds);
+    const selectAll = useSelectionStore((s) => s.selectAll);
+    const clear = useSelectionStore((s) => s.clear);
+
+    const shownIds = shown.map((e) => e.id);
+    const allShownSelected =
+        shownIds.length > 0 && shownIds.every((id) => selectedIds.has(id));
 
     return (
         <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
@@ -52,6 +108,18 @@ export default function ExpenseTable({ expenses, loading }: ExpenseTableProps) {
                     <table className="w-full text-sm">
                         <thead>
                             <tr className="text-xs font-medium text-gray-500 uppercase tracking-wide border-b border-gray-100">
+                                <th className="px-6 py-3 text-left">
+                                    <input
+                                        type="checkbox"
+                                        checked={allShownSelected}
+                                        onChange={() =>
+                                            allShownSelected
+                                                ? clear()
+                                                : selectAll(shownIds)
+                                        }
+                                        aria-label="Select all expenses"
+                                    />
+                                </th>
                                 <th className="px-6 py-3 text-left">Date</th>
                                 <th className="px-6 py-3 text-left">
                                     Description
@@ -65,35 +133,7 @@ export default function ExpenseTable({ expenses, loading }: ExpenseTableProps) {
                         </thead>
                         <tbody className="divide-y divide-gray-50">
                             {shown.map((e) => (
-                                <tr
-                                    key={e.id}
-                                    onClick={() =>
-                                        navigate(
-                                            `/dashboard/expense/${e.id}${location.search}`,
-                                        )
-                                    }
-                                    className="hover:bg-gray-50 transition-colors"
-                                >
-                                    <td className="px-6 py-3 text-gray-500 whitespace-nowrap">
-                                        {formatDate(e.date)}
-                                    </td>
-                                    <td className="px-6 py-3 text-gray-900">
-                                        {e.description}
-                                    </td>
-                                    <td className="px-6 py-3 text-gray-700">
-                                        {e.spender}
-                                    </td>
-                                    <td className="px-6 py-3">
-                                        <span
-                                            className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${CATEGORY_COLORS[e.category] ?? 'bg-gray-100 text-gray-600'}`}
-                                        >
-                                            {e.category}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-3 text-right font-medium text-gray-900">
-                                        ${e.amount.toFixed(2)}
-                                    </td>
-                                </tr>
+                                <ExpenseRow key={e.id} expense={e} />
                             ))}
                         </tbody>
                     </table>

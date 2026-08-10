@@ -1,6 +1,6 @@
 import type { Expense, DashboardFilters } from '../types';
 import { getDateRange } from '../utils/date';
-import { get, post } from './client';
+import { get, post, del } from './client';
 
 function resolveRange(filters: DashboardFilters): {
     start: string;
@@ -33,4 +33,11 @@ export async function createExpense(
     input: Omit<Expense, 'id'>,
 ): Promise<Expense> {
     return post<Expense>('/api/expenses', input);
+}
+
+/**
+ * Delete a single expense by id.
+ */
+export async function deleteExpense(id: number): Promise<void> {
+    return del(`/api/expenses/${id}`);
 }
