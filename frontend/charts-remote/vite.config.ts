@@ -19,9 +19,9 @@ export default defineConfig({
             // at runtime with this plugin. This remote bundles its own
             // complete copy and owns an independent QueryClient instead.
             shared: {
-                react: { singleton: true },
-                'react-dom': { singleton: true },
-                'react-router-dom': { singleton: true },
+                react: { singleton: true, import: false },
+                'react-dom': { singleton: true, import: false },
+                'react-router-dom': { singleton: true, import: false },
             },
         }),
     ],
