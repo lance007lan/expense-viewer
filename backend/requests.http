@@ -1,0 +1,53 @@
+### Requires the backend running locally (mvn spring-boot:run), default port 8080.
+@host = http://localhost:8080
+
+### List spenders
+GET {{host}}/api/spenders
+
+### List all expenses
+GET {{host}}/api/expenses
+
+### List expenses filtered by date range, spender, category
+GET {{host}}/api/expenses?start=2026-01-01&end=2026-12-31&spender=Alice&category=Groceries
+
+### Create a valid expense
+POST {{host}}/api/expenses
+Content-Type: application/json
+
+{
+  "date": "2026-08-15",
+  "description": "Weekly groceries",
+  "spender": "Alice",
+  "category": "Groceries",
+  "amount": 42.50,
+  "receiptName": "receipt.pdf",
+  "receiptUrl": "https://example.com/receipts/receipt.pdf"
+}
+
+### Create an expense for an unknown spender -> 400 via ResponseStatusException
+POST {{host}}/api/expenses
+Content-Type: application/json
+
+{
+  "date": "2026-08-15",
+  "description": "Weekly groceries",
+  "spender": "Nobody",
+  "category": "Groceries",
+  "amount": 42.50
+}
+
+### Create an expense with invalid fields -> 400 with field errors
+# missing date, blank spender, non-positive amount
+POST {{host}}/api/expenses
+Content-Type: application/json
+
+{
+  "date": null,
+  "description": "Bad request",
+  "spender": "",
+  "category": "Groceries",
+  "amount": -5
+}
+
+### Delete an expense
+DELETE {{host}}/api/expenses/1

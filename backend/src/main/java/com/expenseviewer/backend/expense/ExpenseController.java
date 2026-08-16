@@ -2,13 +2,12 @@ package com.expenseviewer.backend.expense;
 
 import com.expenseviewer.backend.spender.Spender;
 import com.expenseviewer.backend.spender.SpenderRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -20,18 +19,16 @@ public class ExpenseController {
     private final SpenderRepository spenderRepository;
 
     @GetMapping
-    public List<ExpenseResponse> list(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
-            @RequestParam(required = false) String spender,
-            @RequestParam(required = false) String category) {
-        return expenseRepository.search(start, end, blankToNull(spender), blankToNull(category)).stream()
+    public List<ExpenseResponse> list(@Valid ExpenseSearchRequest request) {
+        return expenseRepository
+                .search(request.start(), request.end(), blankToNull(request.spender()), blankToNull(request.category()))
+                .stream()
                 .map(ExpenseResponse::from)
                 .toList();
     }
 
     @PostMapping
-    public ExpenseResponse create(@RequestBody ExpenseRequest request) {
+    public ExpenseResponse create(@Valid @RequestBody ExpenseRequest request) {
         Spender spender = spenderRepository.findByName(request.spender())
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.BAD_REQUEST, "Unknown spender: " + request.spender()));
