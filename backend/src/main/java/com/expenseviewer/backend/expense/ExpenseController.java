@@ -35,21 +35,9 @@ public class ExpenseController {
         return ExpenseResponse.from(expenseRepository.save(expense));
     }
 
-    @PutMapping("/{id}")
-    public ExpenseResponse update(@PathVariable Long id, @Valid @RequestBody ExpenseRequest request) {
-        Expense expense = expenseRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Expense not found: " + id));
-        applyRequest(expense, request);
-
-        return ExpenseResponse.from(expenseRepository.save(expense));
-    }
-
     @PatchMapping("/{id}/spender")
     public ExpenseResponse updateSpender(@PathVariable Long id, @Valid @RequestBody UpdateSpenderRequest request) {
-        Expense expense = expenseRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Expense not found: " + id));
+        Expense expense = getExpense(id);
 
         Spender spender = spenderRepository.findByName(request.spender())
                 .orElseThrow(() -> new ResponseStatusException(
@@ -61,10 +49,7 @@ public class ExpenseController {
 
     @PatchMapping("/{id}/category")
     public ExpenseResponse updateCategory(@PathVariable Long id, @Valid @RequestBody UpdateCategoryRequest request) {
-        Expense expense = expenseRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Expense not found: " + id));
-
+        Expense expense = getExpense(id);
         expense.setCategory(request.category());
 
         return ExpenseResponse.from(expenseRepository.save(expense));
@@ -73,6 +58,12 @@ public class ExpenseController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         expenseRepository.deleteById(id);
+    }
+
+    private Expense getExpense(Long id) {
+        return expenseRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Expense not found: " + id));
     }
 
     private void applyRequest(Expense expense, ExpenseRequest request) {
