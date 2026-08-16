@@ -49,5 +49,47 @@ Content-Type: application/json
   "amount": -5
 }
 
+### Update an expense (full replace, same validation as create)
+PUT {{host}}/api/expenses/1
+Content-Type: application/json
+
+{
+  "date": "2026-08-16",
+  "description": "Weekly groceries (updated)",
+  "spender": "Bob",
+  "category": "Groceries",
+  "amount": 55.00,
+  "receiptName": "receipt.pdf",
+  "receiptUrl": "https://example.com/receipts/receipt.pdf"
+}
+
+### Update a non-existent expense -> 404
+PUT {{host}}/api/expenses/999999
+Content-Type: application/json
+
+{
+  "date": "2026-08-16",
+  "description": "Weekly groceries",
+  "spender": "Bob",
+  "category": "Groceries",
+  "amount": 55.00
+}
+
+### Update just the spender on an expense
+PATCH {{host}}/api/expenses/1/spender
+Content-Type: application/json
+
+{
+  "spender": "Charlie"
+}
+
+### Update just the category on an expense
+PATCH {{host}}/api/expenses/1/category
+Content-Type: application/json
+
+{
+  "category": "Utilities"
+}
+
 ### Delete an expense
 DELETE {{host}}/api/expenses/1
