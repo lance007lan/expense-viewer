@@ -1,7 +1,7 @@
 packages:
   - host
-  - charts
-  - dashboard
-  - import
+  - remotes/charts
+  - remotes/dashboard
+  - remotes/import
 allowBuilds:
   esbuild: true
