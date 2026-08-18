@@ -3,14 +3,14 @@ import * as aws from '@pulumi/aws';
 import * as synced from '@pulumi/synced-folder';
 import { appName } from './config';
 
-// ── S3 — static hosting for both frontend apps ───────────────────────────
+// ── S3 — static hosting for all frontend apps ────────────────────────────
 //
-// One shared bucket serves both host (frontend/host) and its Module
-// Federation remote (frontend/charts-remote) — e.g. host's build at the
-// bucket root, charts-remote's build under a /charts-remote/ prefix.
-// Sharing one bucket/domain also means they're same-origin, so the
-// remote's JS doesn't need CORS the way it would if each app had its own
-// bucket/domain.
+// One shared bucket serves host (frontend/host) and its Module Federation
+// remotes (frontend/charts-remote, frontend/dashboard, frontend/import) —
+// e.g. host's build at the bucket root, each remote's build under its own
+// prefix (/charts-remote/, /dashboard/, /import/). Sharing one
+// bucket/domain also means they're same-origin, so the remotes' JS doesn't
+// need CORS the way it would if each app had its own bucket/domain.
 
 const current = aws.getCallerIdentity({});
 
@@ -73,8 +73,8 @@ const frontendOwnershipControls = new aws.s3.BucketOwnershipControls(
 );
 
 // Syncs frontend/dist-deploy/ (see frontend/build-for-deploy.sh) to the
-// bucket root: host's build at the root, charts-remote's build under
-// dist-deploy/charts-remote/ → served at <site>/charts-remote/.
+// bucket root: host's build at the root, each remote's build under its own
+// dist-deploy/<remote>/ prefix → served at <site>/<remote>/.
 // managedObjects: false delegates to the aws CLI instead of tracking
 // every hashed build artifact as an individual Pulumi resource.
 new synced.S3BucketFolder(

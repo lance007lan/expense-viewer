@@ -1,6 +1,6 @@
 import type { Expense, DashboardFilters } from '../types';
 import { getDateRange } from '../utils/date';
-import { get, post, del } from './client';
+import { get, del } from './client';
 
 function resolveRange(filters: DashboardFilters): {
     start: string;
@@ -24,15 +24,6 @@ export async function fetchExpenses(
         spender: filters.spender,
         category: filters.category,
     });
-}
-
-/**
- * Create a new expense.
- */
-export async function createExpense(
-    input: Omit<Expense, 'id'>,
-): Promise<Expense> {
-    return post<Expense>('/api/expenses', input);
 }
 
 /**

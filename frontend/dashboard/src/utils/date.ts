@@ -24,7 +24,7 @@ export function getDateRange(period: string): { start: string; end: string } {
     }
 }
 
-export function fmt(date: Date): string {
+function fmt(date: Date): string {
     return date.toISOString().slice(0, 10);
 }
 

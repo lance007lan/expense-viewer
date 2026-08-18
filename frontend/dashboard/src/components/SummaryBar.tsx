@@ -18,14 +18,14 @@ interface StatCardProps {
 
 function StatCard({ label, value, loading }: StatCardProps) {
     return (
-        <div className="bg-white border border-gray-200 rounded-xl px-6 py-4 flex flex-col gap-1">
-            <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+        <div className="d:bg-white d:border d:border-gray-200 d:rounded-xl d:px-6 d:py-4 d:flex d:flex-col d:gap-1">
+            <span className="d:text-xs d:font-medium d:text-gray-500 d:uppercase d:tracking-wide">
                 {label}
             </span>
             {loading ? (
-                <div className="h-8 w-24 bg-gray-100 rounded animate-pulse mt-1" />
+                <div className="d:h-8 d:w-24 d:bg-gray-100 d:rounded d:animate-pulse d:mt-1" />
             ) : (
-                <span className="text-2xl font-semibold text-gray-900">
+                <span className="d:text-2xl d:font-semibold d:text-gray-900">
                     {value}
                 </span>
             )}
@@ -49,7 +49,7 @@ export default function SummaryBar({ expenses, loading }: SummaryBarProps) {
     ).sort((a, b) => b[1] - a[1])[0];
 
     return (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="d:grid d:grid-cols-3 d:gap-4">
             <StatCard
                 loading={loading}
                 label="Total Spent"

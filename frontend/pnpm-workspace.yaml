@@ -1,5 +1,7 @@
 packages:
   - host
   - charts-remote
+  - dashboard
+  - import
 allowBuilds:
   esbuild: true

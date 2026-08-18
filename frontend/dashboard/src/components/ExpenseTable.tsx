@@ -6,13 +6,13 @@ import { useSelectionStore } from '../store/useSelectionStore';
 const PAGE_SIZE = 8;
 
 const CATEGORY_COLORS: Record<string, string> = {
-    Groceries: 'bg-green-100 text-green-700',
-    Dining: 'bg-orange-100 text-orange-700',
-    Bills: 'bg-gray-100 text-gray-600',
-    Transport: 'bg-blue-100 text-blue-700',
-    Shopping: 'bg-purple-100 text-purple-700',
-    Health: 'bg-red-100 text-red-700',
-    Entertainment: 'bg-yellow-100 text-yellow-700',
+    Groceries: 'd:bg-green-100 d:text-green-700',
+    Dining: 'd:bg-orange-100 d:text-orange-700',
+    Bills: 'd:bg-gray-100 d:text-gray-600',
+    Transport: 'd:bg-blue-100 d:text-blue-700',
+    Shopping: 'd:bg-purple-100 d:text-purple-700',
+    Health: 'd:bg-red-100 d:text-red-700',
+    Entertainment: 'd:bg-yellow-100 d:text-yellow-700',
 };
 
 function formatDate(iso: string): string {
@@ -46,10 +46,10 @@ const ExpenseRow = memo(function ExpenseRow({ expense: e }: ExpenseRowProps) {
             onClick={() =>
                 navigate(`/dashboard/expense/${e.id}${location.search}`)
             }
-            className="hover:bg-gray-50 transition-colors cursor-pointer"
+            className="d:hover:bg-gray-50 d:transition-colors d:cursor-pointer"
         >
             <td
-                className="px-6 py-3"
+                className="d:px-6 d:py-3"
                 onClick={(evt) => evt.stopPropagation()}
             >
                 <input
@@ -59,19 +59,19 @@ const ExpenseRow = memo(function ExpenseRow({ expense: e }: ExpenseRowProps) {
                     aria-label={`Select expense ${e.description}`}
                 />
             </td>
-            <td className="px-6 py-3 text-gray-500 whitespace-nowrap">
+            <td className="d:px-6 d:py-3 d:text-gray-500 d:whitespace-nowrap">
                 {formatDate(e.date)}
             </td>
-            <td className="px-6 py-3 text-gray-900">{e.description}</td>
-            <td className="px-6 py-3 text-gray-700">{e.spender}</td>
-            <td className="px-6 py-3">
+            <td className="d:px-6 d:py-3 d:text-gray-900">{e.description}</td>
+            <td className="d:px-6 d:py-3 d:text-gray-700">{e.spender}</td>
+            <td className="d:px-6 d:py-3">
                 <span
-                    className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${CATEGORY_COLORS[e.category] ?? 'bg-gray-100 text-gray-600'}`}
+                    className={`d:inline-block d:px-2 d:py-0.5 d:rounded-full d:text-xs d:font-medium ${CATEGORY_COLORS[e.category] ?? 'd:bg-gray-100 d:text-gray-600'}`}
                 >
                     {e.category}
                 </span>
             </td>
-            <td className="px-6 py-3 text-right font-medium text-gray-900">
+            <td className="d:px-6 d:py-3 d:text-right d:font-medium d:text-gray-900">
                 ${e.amount.toFixed(2)}
             </td>
         </tr>
@@ -92,23 +92,23 @@ export default function ExpenseTable({ expenses, loading }: ExpenseTableProps) {
         shownIds.length > 0 && shownIds.every((id) => selectedIds.has(id));
 
     return (
-        <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-                <h2 className="font-semibold text-gray-900">Expenses</h2>
+        <div className="d:bg-white d:border d:border-gray-200 d:rounded-xl d:overflow-hidden">
+            <div className="d:flex d:items-center d:justify-between d:px-6 d:py-4 d:border-b d:border-gray-100">
+                <h2 className="d:font-semibold d:text-gray-900">Expenses</h2>
             </div>
 
             {loading ? (
-                <div className="divide-y divide-gray-50">Loading</div>
+                <div className="d:divide-y d:divide-gray-50">Loading</div>
             ) : expenses.length === 0 ? (
-                <div className="px-6 py-12 text-center text-gray-400 text-sm">
+                <div className="d:px-6 d:py-12 d:text-center d:text-gray-400 d:text-sm">
                     No expenses match the selected filters.
                 </div>
             ) : (
                 <>
-                    <table className="w-full text-sm">
+                    <table className="d:w-full d:text-sm">
                         <thead>
-                            <tr className="text-xs font-medium text-gray-500 uppercase tracking-wide border-b border-gray-100">
-                                <th className="px-6 py-3 text-left">
+                            <tr className="d:text-xs d:font-medium d:text-gray-500 d:uppercase d:tracking-wide d:border-b d:border-gray-100">
+                                <th className="d:px-6 d:py-3 d:text-left">
                                     <input
                                         type="checkbox"
                                         checked={allShownSelected}
@@ -120,18 +120,24 @@ export default function ExpenseTable({ expenses, loading }: ExpenseTableProps) {
                                         aria-label="Select all expenses"
                                     />
                                 </th>
-                                <th className="px-6 py-3 text-left">Date</th>
-                                <th className="px-6 py-3 text-left">
+                                <th className="d:px-6 d:py-3 d:text-left">
+                                    Date
+                                </th>
+                                <th className="d:px-6 d:py-3 d:text-left">
                                     Description
                                 </th>
-                                <th className="px-6 py-3 text-left">Spender</th>
-                                <th className="px-6 py-3 text-left">
+                                <th className="d:px-6 d:py-3 d:text-left">
+                                    Spender
+                                </th>
+                                <th className="d:px-6 d:py-3 d:text-left">
                                     Category
                                 </th>
-                                <th className="px-6 py-3 text-right">Amount</th>
+                                <th className="d:px-6 d:py-3 d:text-right">
+                                    Amount
+                                </th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-50">
+                        <tbody className="d:divide-y d:divide-gray-50">
                             {shown.map((e) => (
                                 <ExpenseRow key={e.id} expense={e} />
                             ))}
@@ -139,10 +145,10 @@ export default function ExpenseTable({ expenses, loading }: ExpenseTableProps) {
                     </table>
 
                     {hasMore && (
-                        <div className="px-6 py-4 border-t border-gray-100 text-center">
+                        <div className="d:px-6 d:py-4 d:border-t d:border-gray-100 d:text-center">
                             <button
                                 onClick={() => setVisible((v) => v + PAGE_SIZE)}
-                                className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                                className="d:text-sm d:text-blue-600 d:hover:text-blue-800 d:font-medium"
                             >
                                 Load more ({expenses.length - visible}{' '}
                                 remaining)

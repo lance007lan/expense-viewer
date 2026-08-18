@@ -3,7 +3,7 @@
     "private": true,
     "packageManager": "pnpm@11.20.0",
     "scripts": {
-        "dev": "pnpm --filter charts-remote build && concurrently -n remote,host -c blue,green \"pnpm --filter charts-remote preview\" \"pnpm --filter host dev\"",
+        "dev": "pnpm --filter charts-remote build && pnpm --filter dashboard build && pnpm --filter import build && concurrently -n remote,dashboard,import,host -c blue,magenta,cyan,green \"pnpm --filter charts-remote preview\" \"pnpm --filter dashboard preview\" \"pnpm --filter import preview\" \"pnpm --filter host dev\"",
         "build:deploy": "./build-for-deploy.sh",
         "lint": "oxlint .",
         "format": "prettier --write .",

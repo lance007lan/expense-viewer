@@ -24,8 +24,3 @@ export async function post<T>(path: string, body: unknown): Promise<T> {
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
     return res.json() as Promise<T>;
 }
-
-export async function del(path: string): Promise<void> {
-    const res = await fetch(`${BASE_URL}${path}`, { method: 'DELETE' });
-    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-}

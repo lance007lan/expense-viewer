@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import DashboardTab from './DashboardTab';
-import * as expensesApi from '../api/expenses';
-import * as spendersApi from '../api/spenders';
-import type { Expense } from '../types';
+import * as expensesApi from './api/expenses';
+import * as spendersApi from './api/spenders';
+import { queryClient } from './queryClient';
+import type { Expense } from './types';
 
-vi.mock('../api/expenses');
-vi.mock('../api/spenders');
+vi.mock('./api/expenses');
+vi.mock('./api/spenders');
 
 const expenses: Expense[] = [
     {
@@ -21,6 +21,7 @@ const expenses: Expense[] = [
 ];
 
 beforeEach(() => {
+    queryClient.clear();
     vi.mocked(expensesApi.fetchExpenses).mockResolvedValue(expenses);
     vi.mocked(spendersApi.fetchSpenders).mockResolvedValue([
         { id: 1, name: 'Alice' },
@@ -28,16 +29,10 @@ beforeEach(() => {
 });
 
 function renderDashboard() {
-    const queryClient = new QueryClient({
-        defaultOptions: { queries: { retry: false } },
-    });
-
     return render(
-        <QueryClientProvider client={queryClient}>
-            <MemoryRouter>
-                <DashboardTab />
-            </MemoryRouter>
-        </QueryClientProvider>,
+        <MemoryRouter>
+            <DashboardTab />
+        </MemoryRouter>,
     );
 }
 

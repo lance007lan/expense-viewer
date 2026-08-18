@@ -21,20 +21,20 @@ export default function BulkActionBar() {
     };
 
     return (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-gray-900 text-white px-5 py-3 rounded-xl shadow-lg">
-            <span className="text-sm font-medium">
+        <div className="d:fixed d:bottom-6 d:left-1/2 d:-translate-x-1/2 d:flex d:items-center d:gap-4 d:bg-gray-900 d:text-white d:px-5 d:py-3 d:rounded-xl d:shadow-lg">
+            <span className="d:text-sm d:font-medium">
                 {selectedIds.size} selected
             </span>
             <button
                 onClick={handleDelete}
                 disabled={isPending}
-                className="text-sm font-medium text-red-300 hover:text-red-200 disabled:opacity-50"
+                className="d:text-sm d:font-medium d:text-red-300 d:hover:text-red-200 d:disabled:opacity-50"
             >
                 {isPending ? 'Deleting…' : 'Delete'}
             </button>
             <button
                 onClick={() => clear()}
-                className="text-sm text-gray-300 hover:text-white"
+                className="d:text-sm d:text-gray-300 d:hover:text-white"
             >
                 Cancel
             </button>
