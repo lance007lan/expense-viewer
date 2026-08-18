@@ -1,20 +1,40 @@
-# Frontend
-frontend/node_modules/
-frontend/host/node_modules/
-frontend/host/dist/
-frontend/charts/node_modules/
-frontend/charts/dist/
+# Dependencies & build output
+node_modules/
+dist/
+dist-ssr/
 frontend/dist-deploy/
+*.local
 
-# Backend
+# Backend (Java/Maven)
 backend/target/
 backend/.mvn/
 *.class
 
+# Pulumi
+pulumi/bin/
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
 # IDE
 .idea/
 *.iml
-.vscode/
+*.iws
+*.ipr
+.vscode/*
+!.vscode/extensions.json
 
 # OS
 .DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
