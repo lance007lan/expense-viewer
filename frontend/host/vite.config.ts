@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
     const dashboardUrl =
         env.VITE_DASHBOARD_REMOTE_URL ??
         'http://localhost:5175/assets/remoteEntry.js';
-    const chartsRemoteUrl =
+    const chartsUrl =
         env.VITE_CHARTS_REMOTE_URL ??
         'http://localhost:5174/assets/remoteEntry.js';
     const importUrl =
@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => {
                 name: 'host',
                 remotes: {
                     dashboard: dashboardUrl,
-                    chartsRemote: chartsRemoteUrl,
+                    charts: chartsUrl,
                     // 'import' is a reserved word, so the federation
                     // container name (a JS identifier used at runtime) is
                     // 'importApp' even though the package itself is named

@@ -1,6 +1,6 @@
 packages:
   - host
-  - charts-remote
+  - charts
   - dashboard
   - import
 allowBuilds:

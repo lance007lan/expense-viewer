@@ -11,7 +11,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 // vite.config.ts.
 const DashboardTab = lazy(() => import('dashboard/DashboardTab'));
 const ExpenseDetail = lazy(() => import('dashboard/ExpenseDetail'));
-const ChartsTab = lazy(() => import('chartsRemote/ChartsTab'));
+const ChartsTab = lazy(() => import('charts/ChartsTab'));
 const ImportTab = lazy(() => import('importApp/ImportTab'));
 
 function RemoteFallback({ label }: { label: string }) {

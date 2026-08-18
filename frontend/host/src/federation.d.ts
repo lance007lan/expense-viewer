@@ -16,7 +16,7 @@ declare module 'dashboard/ExpenseDetail' {
     export default ExpenseDetail;
 }
 
-declare module 'chartsRemote/ChartsTab' {
+declare module 'charts/ChartsTab' {
     import type { ComponentType } from 'react';
 
     const ChartsTab: ComponentType;
